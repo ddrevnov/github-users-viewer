@@ -3,7 +3,9 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import * as UsersActions from '../actions/users';
 
-class App extends Component {
+import App from '../components/App.jsx';
+
+class AppContainer extends Component {
     componentWillMount() {
         const { loadUsers } = this.props.actions;
 
@@ -14,7 +16,7 @@ class App extends Component {
         const { users } = this.props;
 
         return (
-            <h1> {JSON.stringify(users)} </h1>
+            <App users={users} />
         );
     }
 }
@@ -34,4 +36,4 @@ function mapDispatchToProps(dispatch) {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(App);
+)(AppContainer);
