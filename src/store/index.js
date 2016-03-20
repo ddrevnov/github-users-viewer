@@ -9,10 +9,13 @@ export default function configure(initialState) {
         ? window.devToolsExtension()(createStore)
         : createStore;
 
-    const createStoreWithMiddleware = applyMiddleware(
-        createLogger(),
-        thunkMiddleware
-    )(create);
+    const middlewares = [ thunkMiddleware ];
+
+    if (process.env.NODE_ENV === 'development') {
+        middlewares.push(createLogger());
+    }
+
+    const createStoreWithMiddleware = applyMiddleware(...middlewares)(create);
 
     const store = createStoreWithMiddleware(rootReducer, initialState);
 
