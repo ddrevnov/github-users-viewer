@@ -2,7 +2,7 @@
 
 Small SPA to view most popular github profiles by selected programming language.
 
-**DEMO HERE**
+**[DEMO HERE](http://krambertech.github.io/github-users-viewer/)**
 
 #### How to run
 
