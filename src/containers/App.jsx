@@ -5,8 +5,16 @@ import * as UsersActions from '../actions/users';
 
 import App from '../components/App.jsx';
 
+const LANGUAGES = ['javascript', 'java', 'python', 'css', 'php', 'c++', 'c#', 'c', 'shell', 'objective-c', 'go', 'perl'];
+
 class AppContainer extends Component {
     componentWillMount() {
+        const { loadUsers } = this.props.actions;
+
+        loadUsers();
+    }
+
+    handleLanguageChange() {
         const { loadUsers } = this.props.actions;
 
         loadUsers();
@@ -34,6 +42,6 @@ function mapDispatchToProps(dispatch) {
 }
 
 export default connect(
-  mapStateToProps,
-  mapDispatchToProps
+    mapStateToProps,
+    mapDispatchToProps
 )(AppContainer);

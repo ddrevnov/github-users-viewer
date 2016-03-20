@@ -6,7 +6,6 @@ module.exports = {
 	context: path.join(__dirname, './src'),
 	entry: {
 		jsx: './index.js',
-		html: './../public/index.html',
 		vendor: ['react']
 	},
 	output: {

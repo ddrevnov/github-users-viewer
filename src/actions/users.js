@@ -14,7 +14,7 @@ export function loadUsers() {
             console.log(data);
             dispatch({
                 type  : LOAD_USERS_SUCCESS,
-                users : data
+                users : data.data
             });
         });
     };
