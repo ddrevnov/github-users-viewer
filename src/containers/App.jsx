@@ -7,31 +7,40 @@ import App from '../components/App.jsx';
 
 const LANGUAGES = ['javascript', 'java', 'python', 'css', 'php', 'c++', 'c#', 'c', 'shell', 'objective-c', 'go', 'perl'];
 
+const DEFAULT_SELECTED = LANGUAGES[0];
+
 class AppContainer extends Component {
     componentWillMount() {
-        const { loadUsers } = this.props.actions;
+        const { loadUserProfiles } = this.props.actions;
 
-        loadUsers();
+        loadUserProfiles(DEFAULT_SELECTED);
     }
 
-    handleLanguageChange() {
-        const { loadUsers } = this.props.actions;
+    handleLanguageChange(language) {
+        const { loadUserProfiles } = this.props.actions;
 
-        loadUsers();
+        loadUserProfiles(language);
     }
 
     render() {
-        const { users } = this.props;
+        const { users, selectedLanguage } = this.props;
 
         return (
-            <App users={users} />
+            <App
+                languages={LANGUAGES}
+                selectedLanguage={selectedLanguage}
+                onLanguageChange={::this.handleLanguageChange}
+                users={users}
+            />
         );
     }
 }
 
 function mapStateToProps({ users }) {
     return {
-        users: users.users
+        users: users.users,
+        loadingStatus: users.loadingStatus,
+        selectedLanguage: users.selectedLanguage || DEFAULT_SELECTED
     };
 }
 

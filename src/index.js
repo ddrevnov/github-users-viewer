@@ -7,6 +7,8 @@ import configure from './store';
 
 import './assets/base.css';
 
+console.info(window.APP_CONFIG);
+
 const store = configure();
 
 ReactDOM.render(

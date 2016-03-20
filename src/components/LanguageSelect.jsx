@@ -1,39 +1,26 @@
 import React, { Component } from 'react';
 
-import Select from 'react-select';
-
-import { capitalizeFirstLetter } from '../utils';
-
 import styles from './LanguageSelect.css';
 
 class LanguageSelect extends Component {
-    handleChange(value) {
-        console.log(value);
+    handleChange(e) {
+        const { onChange } = this.props;
+
+        if (onChange) {
+            onChange(e.target.value);
+        }
     }
 
     render() {
-        const options = [
-            { value: 'javascript', label: 'javascript' },
-            { value: 'java', label: 'java' },
-            { value: 'python', label: 'python' },
-            { value: 'css', label: 'css' },
-            { value: 'php', label: 'php' },
-            { value: 'c++', label: 'c++' },
-            { value: 'c#', label: 'c#' },
-            { value: 'c', label: 'c' },
-            { value: 'shell', label: 'shell' },
-            { value: 'objective-c', label: 'objective-c' },
-            { value: 'go', label: 'go' },
-            { value: 'perl', label: 'perl' }
-        ];
+        const { selectedLanguage, languages } = this.props;
 
         return (
             <div className={styles.root}>
-                <select value={'java'}>
+                <select value={selectedLanguage} onChange={::this.handleChange}>
                     {
-                        options.map(option =>
-                            <option value={option.value}>
-                                {option.label}
+                        languages.map(language =>
+                            <option value={language} key={language}>
+                                {language}
                             </option>
                         )
                     }

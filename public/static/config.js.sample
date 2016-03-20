@@ -1,0 +1,4 @@
+var APP_CONFIG = {
+    numberOfProfilesToDisplay: 100,
+    githubApiToken: 'XXX'
+};

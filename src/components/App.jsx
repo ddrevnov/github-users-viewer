@@ -7,21 +7,26 @@ import styles from './App.css';
 
 class App extends Component {
     render() {
-        const { users } = this.props;
+        const { users, selectedLanguage, languages, onLanguageChange } = this.props;
 
         return (
             <div className={styles.root}>
                 <div className={styles.content}>
-                    <LanguageSelect />
+                    <LanguageSelect
+                        selectedLanguage={selectedLanguage}
+                        languages={languages}
+                        onChange={onLanguageChange}
+                    />
 
                     <div className={styles.list}>
                         {
                             users.map(user =>
                                 <UserTile
                                     name={user.login}
-                                    avatar={user.avatar_url}
+                                    isLoading={user.isLoading}
+                                    avatar={user.avatar}
                                     key={user.login}
-                                    numberOfFollovers={10}
+                                    numberOfFollovers={user.numberOfFollowers}
                                 />
                             )
                         }
