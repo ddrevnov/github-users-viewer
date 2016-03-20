@@ -1,33 +1,48 @@
-import React, { Component } from 'react';
+import React, { Component }   from 'react';
 import { bindActionCreators } from 'redux';
-import { connect } from 'react-redux';
+import { connect }            from 'react-redux';
+
 import * as UsersActions from '../actions/users';
 
 import App from '../components/App.jsx';
 
-const LANGUAGES = ['javascript', 'java', 'python', 'css', 'php', 'c++', 'c#', 'c', 'shell', 'objective-c', 'go', 'perl'];
+const LANGUAGES = [
+    'javascript',
+    'java',
+    'python',
+    'css',
+    'php',
+    'c++',
+    'c#',
+    'c',
+    'shell',
+    'objective-c',
+    'go',
+    'perl'
+];
 
-const DEFAULT_SELECTED = LANGUAGES[0];
+const DEFAULT_SELECTED_LANGUAGE = LANGUAGES[0];
 
 class AppContainer extends Component {
     componentWillMount() {
-        const { loadUserProfiles } = this.props.actions;
+        const { loadPopularUsersByLanguage } = this.props.actions;
 
-        loadUserProfiles(DEFAULT_SELECTED);
+        loadPopularUsersByLanguage(DEFAULT_SELECTED_LANGUAGE);
     }
 
     handleLanguageChange(language) {
-        const { loadUserProfiles } = this.props.actions;
+        const { loadPopularUsersByLanguage } = this.props.actions;
 
-        loadUserProfiles(language);
+        loadPopularUsersByLanguage(language);
     }
 
     render() {
-        const { users, selectedLanguage } = this.props;
+        const { users, selectedLanguage, loadingPercent } = this.props;
 
         return (
             <App
                 languages={LANGUAGES}
+                loadingPercent={loadingPercent}
                 selectedLanguage={selectedLanguage}
                 onLanguageChange={::this.handleLanguageChange}
                 users={users}
@@ -38,9 +53,9 @@ class AppContainer extends Component {
 
 function mapStateToProps({ users }) {
     return {
-        users: users.users,
-        loadingStatus: users.loadingStatus,
-        selectedLanguage: users.selectedLanguage || DEFAULT_SELECTED
+        users: users.items,
+        loadingPercent: users.loadingPercent,
+        selectedLanguage: users.selectedLanguage || DEFAULT_SELECTED_LANGUAGE
     };
 }
 

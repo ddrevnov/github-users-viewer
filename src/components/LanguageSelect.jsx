@@ -1,8 +1,14 @@
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
 
 import styles from './LanguageSelect.css';
 
 class LanguageSelect extends Component {
+    static propTypes = {
+        selectedLanguage : PropTypes.string,
+        languages        : PropTypes.arrayOf(PropTypes.string),
+        onChange         : PropTypes.func
+    };
+
     handleChange(e) {
         const { onChange } = this.props;
 

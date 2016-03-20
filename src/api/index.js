@@ -5,11 +5,23 @@ import config from '../config.js';
 const API_PREFIX = 'https://api.github.com';
 
 export function searchUsersByLanguage(language) {
-    return axios.get(`${API_PREFIX}/search/users?q=language:${language}&per_page=${config.numberOfProfilesToDisplay}&access_token=${config.githubApiToken}&sort=followers&order=desc`);
+    const params = {
+        'q'            : `language:${language}`,
+        'per_page'     : config.numberOfProfilesToDisplay,
+        'access_token' : config.githubApiToken,
+        'sort'         : 'followers',
+        'order'        : 'desc'
+    };
+
+    return axios.get(`${API_PREFIX}/search/users`, { params });
 }
 
 export function showUserProfile(login) {
-    return axios.get(`${API_PREFIX}/users/${login}?access_token=${config.githubApiToken}`);
+    const params = {
+        'access_token': config.githubApiToken
+    };
+
+    return axios.get(`${API_PREFIX}/users/${login}`, { params });
 }
 
 export default {

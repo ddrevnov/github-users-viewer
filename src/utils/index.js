@@ -1,3 +1,9 @@
-export function capitalizeFirstLetter(string) {
-    return string.charAt(0).toUpperCase() + string.slice(1);
+export function formatUserProfile(data) {
+    return {
+        login: data.login,
+        id: data.id,
+        avatar: data.avatar_url,
+        linkToProfileOnGithub: data.html_url,
+        numberOfFollowers: data.followers
+    };
 }

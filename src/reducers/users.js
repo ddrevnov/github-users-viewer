@@ -1,16 +1,24 @@
 import {
+    LOAD_USERS_LIST_REQUEST,
     LOAD_USERS_LIST_SUCCESS,
     LOAD_USER_PROFILE_SUCCESS
 } from '../actions/users';
 
-import { formatUserProfile } from '../utils/apiResponseFormatter';
+import { formatUserProfile } from '../utils';
 
-const DEFAULT_STATE = { users: [], selectedLanguage: '', loadingStatus: 0 };
+const DEFAULT_STATE = { items: [], selectedLanguage: '', loadingPercent: 0 };
 
 export default function users(state = DEFAULT_STATE, action) {
     switch (action.type) {
+        case LOAD_USERS_LIST_REQUEST: {
+            return {
+                ...state,
+                selectedLanguage: action.selectedLanguage
+            };
+        }
+
         case LOAD_USERS_LIST_SUCCESS: {
-            const users = action.users.map(user => {
+            const items = action.items.map(user => {
                 return {
                     login: user.login,
                     isLoading: true
@@ -19,25 +27,27 @@ export default function users(state = DEFAULT_STATE, action) {
 
             return {
                 ...state,
-                users: users
+                items,
+                loadingPercent: 0
             };
         }
 
         case LOAD_USER_PROFILE_SUCCESS: {
-            console.info(action.login);
-
-            const users = state.users.map(user =>
-                user.login === action.login
+            const items = state.items.map(item =>
+                item.login === action.login
                     ? {
                         ...formatUserProfile(action.profileData),
                         isLoading: false
                     }
-                    : user
+                    : item
             );
+
+            const loadingPercent = state.loadingPercent + (1 / items.length) * 100;
 
             return {
                 ...state,
-                users: users
+                items,
+                loadingPercent
             };
         }
 

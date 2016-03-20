@@ -8,25 +8,26 @@ export const LOAD_USER_PROFILE_REQUEST = 'LOAD_USER_PROFILE_REQUEST';
 export const LOAD_USER_PROFILE_SUCCESS = 'LOAD_USER_PROFILE_SUCCESS';
 export const LOAD_USER_PROFILE_FAIL    = 'LOAD_USER_PROFILE_FAIL';
 
-export function loadUserProfiles(language) {
+export function loadPopularUsersByLanguage(language) {
     return (dispatch) => {
         dispatch({
-            type : LOAD_USERS_LIST_REQUEST
+            type             : LOAD_USERS_LIST_REQUEST,
+            selectedLanguage : language
         });
 
-        return api.searchUsersByLanguage(language).then(({ data }) => {
+        return api.searchUsersByLanguage(language).then(({ data: searchData }) => {
             dispatch({
                 type  : LOAD_USERS_LIST_SUCCESS,
-                users : data.items
+                items : searchData.items
             });
 
 
-            data.items.forEach(item => {
-                api.showUserProfile(item.login).then(({ data }) => {
+            searchData.items.forEach(item => {
+                api.showUserProfile(item.login).then(({ data: profileData }) => {
                     dispatch({
-                        type        : LOAD_USER_PROFILE_SUCCESS,
-                        profileData : data,
-                        login       : item.login
+                        profileData,
+                        type  : LOAD_USER_PROFILE_SUCCESS,
+                        login : item.login
                     });
                 });
             });
