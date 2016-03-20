@@ -13,11 +13,23 @@ class App extends Component {
         selectedLanguage : PropTypes.string,
         languages        : PropTypes.arrayOf(PropTypes.string),
         loadingPercent   : PropTypes.number,
+        error            : PropTypes.object,
         onLanguageChange : PropTypes.func
     };
 
     render() {
-        const { users, selectedLanguage, languages, loadingPercent, onLanguageChange } = this.props;
+        const { users, selectedLanguage, languages, loadingPercent, error, onLanguageChange } = this.props;
+
+        if (error) {
+            return (
+                <div className={styles.root}>
+                    <div className={styles.content}>
+                        <p>{error.message}</p>
+                        <a href={error.linkToDocs}>Go to documentation</a>
+                    </div>
+                </div>
+            );
+        }
 
         return (
             <div className={styles.root}>

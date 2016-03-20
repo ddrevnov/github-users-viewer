@@ -37,7 +37,7 @@ class AppContainer extends Component {
     }
 
     render() {
-        const { users, selectedLanguage, loadingPercent } = this.props;
+        const { users, selectedLanguage, loadingPercent, error } = this.props;
 
         return (
             <App
@@ -46,6 +46,7 @@ class AppContainer extends Component {
                 selectedLanguage={selectedLanguage}
                 onLanguageChange={::this.handleLanguageChange}
                 users={users}
+                error={error}
             />
         );
     }
@@ -54,6 +55,7 @@ class AppContainer extends Component {
 function mapStateToProps({ users }) {
     return {
         users: users.items,
+        error: users.error,
         loadingPercent: users.loadingPercent,
         selectedLanguage: users.selectedLanguage || DEFAULT_SELECTED_LANGUAGE
     };

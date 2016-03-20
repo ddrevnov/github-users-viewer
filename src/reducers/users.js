@@ -1,12 +1,13 @@
 import {
     LOAD_USERS_LIST_REQUEST,
     LOAD_USERS_LIST_SUCCESS,
+    LOAD_USERS_LIST_FAIL,
     LOAD_USER_PROFILE_SUCCESS
 } from '../actions/users';
 
-import { formatUserProfile } from '../utils';
+import { formatUserProfile, formatError } from '../utils';
 
-const DEFAULT_STATE = { items: [], selectedLanguage: '', loadingPercent: 0 };
+const DEFAULT_STATE = { items: [], selectedLanguage: '', loadingPercent: 0, error: null };
 
 export default function users(state = DEFAULT_STATE, action) {
     switch (action.type) {
@@ -29,6 +30,13 @@ export default function users(state = DEFAULT_STATE, action) {
                 ...state,
                 items,
                 loadingPercent: 0
+            };
+        }
+
+        case LOAD_USERS_LIST_FAIL: {
+            return {
+                ...state,
+                error : formatError(action.error)
             };
         }
 

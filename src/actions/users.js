@@ -15,22 +15,28 @@ export function loadPopularUsersByLanguage(language) {
             selectedLanguage : language
         });
 
-        return api.searchUsersByLanguage(language).then(({ data: searchData }) => {
-            dispatch({
-                type  : LOAD_USERS_LIST_SUCCESS,
-                items : searchData.items
-            });
+        return api.searchUsersByLanguage(language)
+            .then(({ data: searchData }) => {
+                dispatch({
+                    type  : LOAD_USERS_LIST_SUCCESS,
+                    items : searchData.items
+                });
 
-
-            searchData.items.forEach(item => {
-                api.showUserProfile(item.login).then(({ data: profileData }) => {
-                    dispatch({
-                        profileData,
-                        type  : LOAD_USER_PROFILE_SUCCESS,
-                        login : item.login
+                searchData.items.forEach(item => {
+                    api.showUserProfile(item.login).then(({ data: profileData }) => {
+                        dispatch({
+                            profileData,
+                            type  : LOAD_USER_PROFILE_SUCCESS,
+                            login : item.login
+                        });
                     });
                 });
+            })
+            .catch(({ data: errorData }) => {
+                dispatch({
+                    type  : LOAD_USERS_LIST_FAIL,
+                    error : errorData
+                });
             });
-        });
     };
 }

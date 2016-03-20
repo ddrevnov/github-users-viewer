@@ -7,3 +7,10 @@ export function formatUserProfile(data) {
         numberOfFollowers: data.followers
     };
 }
+
+export function formatError(data) {
+    return {
+        message: data.message,
+        linkToDocs: data.documentation_url
+    };
+}
