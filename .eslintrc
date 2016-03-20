@@ -240,7 +240,6 @@
     },
 
      "globals":{
-        "$": true,
-        "ga": true
+        "NODE_ENV": true
     }
 }
